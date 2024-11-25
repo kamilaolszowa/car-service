@@ -1,0 +1,8 @@
+.new-car-form-container {
+    max-width: 250px;
+
+    mat-card-content {
+        display: flex;
+        flex-direction: column;
+    }
+}
