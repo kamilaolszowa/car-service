@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.new-car-form-container,
+.form-container,
 .cars-list-container {
     width: 250px;
 
@@ -10,6 +10,10 @@
         display: flex;
         flex-direction: column;
     }
+}
+
+.part-form-card {
+    padding: 5px;
 }
 
 .example-accordion {
