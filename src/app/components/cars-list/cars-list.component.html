@@ -1,0 +1,53 @@
+<div class="cars-list-container">
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <p><strong>Cars list:</strong></p>
+            <ng-container *ngIf="cars.length; else noCarsTemplate">
+                <cdk-accordion class="example-accordion">
+                    @for (car of cars; track car; let index = $index) {
+                    <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button"
+                        tabindex="0" [attr.id]="'accordion-header-' + index"
+                        [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+                        <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                            <strong>VIN </strong> {{ car.vin }}
+                        </div>
+                        <div class="example-accordion-item-body" role="region"
+                            [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
+                            [attr.aria-labelledby]="'accordion-header-' + index">
+
+                            <p>
+                                <strong> VIN: </strong> {{car.vin}}
+                            </p>
+                            <p>
+                                <strong> Brand: </strong> {{car.brand}}
+                            </p>
+                            <p>
+                                <strong> Model: </strong> {{car.model}}
+                            </p>
+                            <p>
+                                <strong> Production year: </strong> {{car.productionYear}}
+                            </p>
+                            <p>
+                                <strong>Services: </strong>
+                            </p>
+                            <ng-container *ngFor="let service of car.services">
+                                <p> - Service cost: {{service.serviceCost}} PLN</p>
+                                <p> - Total cost: {{service.totalCost}} PLN</p>
+                                <p> <strong> Parts: </strong></p>
+                                <ng-container *ngFor="let part of service.parts">
+                                    <p> - {{part.name}}: {{part.cost}} PLN, {{part.quantity}} pcs</p>
+                                </ng-container>
+
+                                <mat-divider></mat-divider>
+                            </ng-container>
+                        </div>
+                    </cdk-accordion-item>
+                    }
+                </cdk-accordion>
+            </ng-container>
+            <ng-template #noCarsTemplate>
+                Brak samochodów
+            </ng-template>
+        </mat-card-content>
+    </mat-card>
+</div>

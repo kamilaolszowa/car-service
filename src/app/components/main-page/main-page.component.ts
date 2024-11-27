@@ -11,6 +11,9 @@ import { Car } from '../../models/car.model';
 import { NgFor, NgIf } from '@angular/common';
 import { Part } from '../../models/part.model';
 import { MatDivider } from '@angular/material/divider';
+import { AddCarComponent } from "../add-car/add-car.component";
+import { CarsListComponent } from "../cars-list/cars-list.component";
+import { AddServiceComponent } from "../add-service/add-service.component";
 
 @Component({
   selector: 'app-main-page',
@@ -19,84 +22,15 @@ import { MatDivider } from '@angular/material/divider';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDivider,
     FormsModule,
     ReactiveFormsModule,
     CdkAccordionModule,
-    NgIf,
-    NgFor
+    AddCarComponent,
+    CarsListComponent,
+    AddServiceComponent
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
-export class MainPageComponent implements OnInit {
-  public newCarForm: FormGroup = new FormGroup({
-    vin: new FormControl('', [Validators.required]),
-    brand: new FormControl('', [Validators.required]),
-    model: new FormControl('', [Validators.required]),
-    productionYear: new FormControl('', [Validators.required]),
-  })
-  public newServiceForm: FormGroup = new FormGroup({
-    vin: new FormControl('', [Validators.required]),
-    serviceCost: new FormControl('', [Validators.required]),
-    totalCost: new FormControl('', [Validators.required]),
-  })
-  public newPartForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    cost: new FormControl('', [Validators.required]),
-    quantity: new FormControl('', [Validators.required]),
-  })
-  public currentServiceParts: Part[] = [];
-
-
-
-  public cars: Car[] = [];
-
-  expandedIndex = 0;
-
-  constructor(private localStorageService: LocalStorageService) {
-
-  }
-
-  public ngOnInit(): void {
-    this.refreshCarList();
-  }
-
-
-  public addCar(): void {
-    this.localStorageService.addCarToLocalStorage({
-      ...this.newCarForm.value,
-      services: []
-    });
-    this.newCarForm.reset();
-    this.refreshCarList();
-  }
-  public addService(): void {
-    let costOfAllParts: number = 0;
-    this.currentServiceParts.forEach((currentPart) => {
-      costOfAllParts += (Number(currentPart.cost) * Number(currentPart.quantity))
-    })
-
-    this.localStorageService.addServiceToCar({
-      serviceCost: this.newServiceForm.value.serviceCost,
-      totalCost: Number(this.newServiceForm.value.serviceCost) + costOfAllParts,
-      parts: this.currentServiceParts
-    },
-      this.newServiceForm.value.vin
-    );
-    this.newServiceForm.reset();
-    this.refreshCarList();
-  }
-
-  private refreshCarList(): void {
-    this.cars = this.localStorageService.getCarsFromLocalStorage();
-
-  }
-
-  public addPart(): void {
-    this.currentServiceParts.push(this.newPartForm.value);
-    this.newPartForm.reset();
-    this.newPartForm.markAsUntouched();
-  }
-
+export class MainPageComponent {
 }

@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Car } from "../models/car.model";
 import { Service } from "../models/service.model";
+import { Subject } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
 })
 export class LocalStorageService {
+    public refreshList$: Subject<void> = new Subject<void>();
 
     public addCarToLocalStorage(car: Car): void {
         const cars: Car[] = this.getCarsFromLocalStorage();

@@ -1,0 +1,13 @@
+.page-container {
+    display: flex;
+}
+
+.form-container,
+.cars-list-container {
+    width: 250px;
+
+    mat-card-content {
+        display: flex;
+        flex-direction: column;
+    }
+}

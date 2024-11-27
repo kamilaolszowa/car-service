@@ -1,0 +1,46 @@
+<div class="form-container">
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <form [formGroup]="newServiceForm">
+                <p><strong>Service:</strong></p>
+                <mat-form-field>
+                    <mat-label>VIN</mat-label>
+                    <input formControlName="vin" matInput>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Service cost</mat-label>
+                    <input formControlName="serviceCost" matInput>
+                </mat-form-field>
+                <strong>Parts:</strong>
+                <ng-container *ngIf="!!currentServiceParts.length; else noPartsTemplate">
+                    <p *ngFor="let item of currentServiceParts">
+                        {{item.name}}: {{item.cost}} PLN, {{item.quantity}} pcs
+                    </p>
+                </ng-container>
+                <ng-template #noPartsTemplate>
+                    <p>No parts used.</p>
+                </ng-template>
+            </form>
+            <mat-card class="part-form-card" appearance="outlined">
+                <form [formGroup]="newPartForm">
+                    <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input formControlName="name" matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Cost</mat-label>
+                        <input formControlName="cost" matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Quantity</mat-label>
+                        <input formControlName="quantity" matInput>
+                    </mat-form-field>
+
+                    <button (click)="addPart()" mat-flat-button>Add part</button>
+                </form>
+            </mat-card>
+            <button (click)="addService()" mat-flat-button>Add service</button>
+        </mat-card-content>
+    </mat-card>
+
+</div>
